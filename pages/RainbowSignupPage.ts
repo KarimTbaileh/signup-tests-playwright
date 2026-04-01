@@ -1,0 +1,63 @@
+import { expect, Locator, Page } from '@playwright/test';
+
+export class RainbowSignupPage {
+  public emailInput: Locator;
+  public codeInput: Locator;
+public passwordInput: Locator;
+  public termsCheckbox: Locator;
+  public continueButton: Locator;
+
+  constructor(private page: Page) {
+    this.emailInput = page.getByRole('textbox', { name: 'Please enter your email' });
+    this.codeInput = page.locator("#codeInput");
+    this.passwordInput = page.locator("#pwdInput");
+    this.termsCheckbox = page.locator('.dummyCheckboxClass');
+    this.continueButton = page.getByRole('button', { name: 'Continue' });
+  }
+
+  async open() {
+    await this.page.goto(process.env.RAINBOW_URL ?? 'https://web.openrainbow.net/rb/2.170.6/index.html#/subscribe');
+  }
+
+  async assertEmailStep() {
+    await expect(this.page.getByRole('heading', { name: 'Create your Rainbow account' })).toBeVisible();
+  }
+
+  async assertVerificationStep() {
+    await expect(this.page.getByText('Please enter your email')).toBeVisible();
+  }
+
+  async fillEmail(email: string) {
+    await this.emailInput.fill(email);
+  }
+
+  async submitEmail() {
+    await this.continueButton.click();
+  }
+
+  async fillVerificationCode(code: string) {
+    await this.codeInput.fill(code);
+  }
+
+ async fillPassword(password: string) {
+  const input = this.page.locator('#pwdInput');
+
+  await input.evaluate((el: HTMLInputElement) => {
+    el.removeAttribute('readonly');
+  });
+
+  await input.focus();
+
+  console.log(await input.getAttribute('readonly'));
+  await input.fill(password);
+}
+
+  async acceptTerms() {
+    
+    await this.termsCheckbox.check();
+  }
+
+  async submitFinal() {
+    await this.continueButton.click();
+  }
+}
