@@ -40,7 +40,7 @@ export class GmailHelper {
   async waitForVerificationCode(filter: MailFilter = {}): Promise<string> {
     const timeoutMs = filter.timeoutMs ?? 1200000;
     const start = Date.now();
-    await this.sleep(5000);
+    await this.sleep(5000); 
 
     while (Date.now() - start < timeoutMs) {
       const code = await this.readLatestCode(filter);
@@ -69,7 +69,7 @@ const uids: number[] = uidsResult;
       for (const uid of [...uids].reverse()) {
         const msgResult = await this.client.fetchOne(uid, {
   envelope: true,
-  source: true,
+  source: true, 
 });
 
 if (!msgResult || typeof msgResult === 'boolean') {

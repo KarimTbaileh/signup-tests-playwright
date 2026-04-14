@@ -17,6 +17,8 @@ public passwordInput: Locator;
 
   async open() {
     await this.page.goto(process.env.RAINBOW_URL ?? 'https://web.openrainbow.net/rb/2.170.6/index.html#/subscribe');
+    await this.page.waitForTimeout(6000); // Wait for potential redirects and page load
+    await this.page.getByRole('button', { name: "Don't have an account?" }).click();
   }
 
   async assertEmailStep() {
@@ -28,10 +30,12 @@ public passwordInput: Locator;
   }
 
   async fillEmail(email: string) {
+    await this.page.waitForTimeout(6000);
     await this.emailInput.fill(email);
   }
 
   async submitEmail() {
+    
     await this.continueButton.click();
   }
 

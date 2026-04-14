@@ -9,7 +9,7 @@ function uniqueGmail(baseEmail: string) {
 }
 
 test.describe('Rainbow Sign Up', () => {
-  test('TC01 - happy path: signup with Gmail verification code', async ({ page }) => {
+  test('TC01 - happy path: signup with Gmail verification code @smoke @regression', async ({ page }) => {
     const rainbow = new RainbowSignupPage(page);
     const gmail = new GmailHelper({
       user: process.env.GMAIL_USER!,
@@ -46,7 +46,7 @@ test.describe('Rainbow Sign Up', () => {
     }
   });
 
-  test('TC02 - wrong verification code should not allow signup', async ({ page }) => {
+  test('TC02 - wrong verification code should not allow signup @regression @negative', async ({ page }) => {
     const rainbow = new RainbowSignupPage(page);
 
     await rainbow.open();
@@ -65,7 +65,7 @@ test.describe('Rainbow Sign Up', () => {
 
   });
 
-  test('TC03 - weak password should block continue', async ({ page }) => {
+  test('TC03 - weak password should block continue @regression @negative', async ({ page }) => {
     const rainbow = new RainbowSignupPage(page);
 
     await rainbow.open();
@@ -79,7 +79,7 @@ test.describe('Rainbow Sign Up', () => {
     await expect(rainbow.continueButton).toBeDisabled();
   });
 
-  test('TC04 - terms checkbox not accepted should block continue', async ({ page }) => {
+  test('TC04 - terms checkbox not accepted should block continue @regression @negative', async ({ page }) => {
     const rainbow = new RainbowSignupPage(page);
 
     await rainbow.open();
