@@ -14,13 +14,11 @@ public passwordInput: Locator;
     this.termsCheckbox = page.locator('.dummyCheckboxClass');
     this.continueButton = page.getByRole('button', { name: 'Continue' });
   }
-
-  async open() {
-    await this.page.goto(process.env.RAINBOW_URL ?? 'https://web.openrainbow.net/rb/2.170.6/index.html#/subscribe');
+async open() {
+    await this.page.goto(process.env.RAINBOW_URL!, { waitUntil: 'networkidle' }); 
     const signUpLink = this.page.getByRole('button', { name: "Don't have an account?" });
-    await signUpLink.waitFor({ state: 'visible', timeout: 15000 }); 
     await signUpLink.click();
-  }
+}
 
   async assertEmailStep() {
     await expect(this.page.getByRole('heading', { name: 'Create your Rainbow account' })).toBeVisible();
