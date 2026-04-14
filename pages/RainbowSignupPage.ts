@@ -29,10 +29,11 @@ async open() {
   }
 
 async fillEmail(email: string) {
+    await this.page.waitForTimeout(5000); 
     await this.emailInput.waitFor({ state: 'visible' });
     await this.emailInput.clear();
     await this.emailInput.pressSequentially(email, { delay: 100 });
-    await this.page.keyboard.press('Tab'); // خطوة إضافية لضمان تفعيل زر Continue
+    await this.page.keyboard.press('Tab'); 
 }
 
 async submitEmail() {
