@@ -17,8 +17,9 @@ public passwordInput: Locator;
 
   async open() {
     await this.page.goto(process.env.RAINBOW_URL ?? 'https://web.openrainbow.net/rb/2.170.6/index.html#/subscribe');
-    await this.page.waitForTimeout(6000); // Wait for potential redirects and page load
-    await this.page.getByRole('button', { name: "Don't have an account?" }).click();
+    const signUpLink = this.page.getByRole('button', { name: "Don't have an account?" });
+    await signUpLink.waitFor({ state: 'visible', timeout: 15000 }); 
+    await signUpLink.click();
   }
 
   async assertEmailStep() {
@@ -30,8 +31,8 @@ public passwordInput: Locator;
   }
 
   async fillEmail(email: string) {
-    await this.page.waitForTimeout(6000);
-    await this.emailInput.fill(email);
+    await this.emailInput.waitFor({ state: 'visible' });
+    await this.emailInput.fill(email)
   }
 
   async submitEmail() {
@@ -57,8 +58,8 @@ public passwordInput: Locator;
 }
 
   async acceptTerms() {
-    
-    await this.termsCheckbox.check();
+    await this.termsCheckbox.waitFor({ state: 'visible' });
+    await this.termsCheckbox.check({ force: true }); // force تساعد في حال كان الـ checkbox مخفي خلف CSS معين
   }
 
   async submitFinal() {
