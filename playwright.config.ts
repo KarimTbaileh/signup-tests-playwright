@@ -20,7 +20,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 4,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
  reporter: [
     ['html'], // لتقريرك الشخصي
@@ -35,6 +35,10 @@ export default defineConfig({
    
     trace: 'on-first-retry',
   },
+  timeout: 60000, // اجعله 60 ثانية بدل 30
+expect: {
+    timeout: 10000,
+},
 
   /* Configure projects for major browsers */
   projects: [

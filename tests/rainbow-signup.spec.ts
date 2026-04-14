@@ -30,8 +30,8 @@ test.describe('Rainbow Sign Up', () => {
       await rainbow.assertVerificationStep();
 
       const code = await gmail.waitForVerificationCode({
-        from: process.env.GMAIL_FROM_FILTER || undefined,
-        subject: process.env.GMAIL_SUBJECT_FILTER || undefined,
+        ...(process.env.GMAIL_FROM_FILTER && { from: process.env.GMAIL_FROM_FILTER }),
+        ...(process.env.GMAIL_SUBJECT_FILTER && { subject: process.env.GMAIL_SUBJECT_FILTER }),
         timeoutMs: 1200000,
       });
 

@@ -35,10 +35,11 @@ public passwordInput: Locator;
     await this.emailInput.fill(email)
   }
 
-  async submitEmail() {
-    
+async submitEmail() {
+    await this.continueButton.waitFor({ state: 'visible' });
+    await expect(this.continueButton).toBeEnabled({ timeout: 15000 }); 
     await this.continueButton.click();
-  }
+}
 
   async fillVerificationCode(code: string) {
     await this.codeInput.fill(code);
