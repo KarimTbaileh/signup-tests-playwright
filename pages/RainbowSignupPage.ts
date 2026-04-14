@@ -28,16 +28,17 @@ async open() {
     await expect(this.page.getByText('Please enter your email')).toBeVisible();
   }
 
-  async fillEmail(email: string) {
+async fillEmail(email: string) {
     await this.emailInput.waitFor({ state: 'visible' });
-    await this.emailInput.fill(email)
-  }
+    await this.emailInput.clear();
+    await this.emailInput.pressSequentially(email, { delay: 100 });
+    await this.page.keyboard.press('Tab'); // خطوة إضافية لضمان تفعيل زر Continue
+}
 
 async submitEmail() {
     await this.continueButton.waitFor({ state: 'visible' });
     await expect(this.continueButton).toBeEnabled({ timeout: 15000 }); 
-    await this.continueButton.click();
-}
+await this.continueButton.click({ force: true, timeout: 10000 });}
 
   async fillVerificationCode(code: string) {
     await this.codeInput.fill(code);
