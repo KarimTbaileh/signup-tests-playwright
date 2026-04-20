@@ -60,7 +60,7 @@ await this.continueButton.click({ force: true, timeout: 10000 });}
 
   async acceptTerms() {
     await this.termsCheckbox.waitFor({ state: 'visible' });
-    await this.termsCheckbox.check({ force: true }); // force تساعد في حال كان الـ checkbox مخفي خلف CSS معين
+    await this.termsCheckbox.check({ force: true }); 
   }
 
   async submitFinal() {
